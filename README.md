@@ -45,3 +45,7 @@ pip install -e .
 
 Or you could probably copy and paste the 'report.py' code into your
 report-template-notebook.
+
+# References
+This work was motivated by the disucssion here
+[GitHub:jupyter-nbconvert](https://github.com/jupyter/nbconvert/issues/249#issuecomment-2070337459).
