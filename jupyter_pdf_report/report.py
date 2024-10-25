@@ -153,6 +153,10 @@ class Report:
             last_line = self.last_line(lines, "package")
             self.insert_lines(pkg_cmd, last_line + 1, lines)
 
+        if "toc" in dirs:
+            last_line = self.last_line(lines, r"\maketitle")
+            self.insert_lines([r"\tableofcontents"], last_line + 1, lines)
+
         with open(self._nbbname + ".tex", "w") as fil:
             fil.write("".join(lines))
 
