@@ -16,7 +16,7 @@ import ipynbname
 
 class Report:
 
-    LATEX_EXTS = [".aux", ".bbl", ".blg", ".out", ".tex"]
+    LATEX_EXTS = [".aux", ".bbl", ".blg", ".out", ".tex", ".toc"]
     LATEX_DIRS = ["_files"]
 
     def __init__(self, nb_basename=None):
@@ -111,6 +111,15 @@ class Report:
             last_line = self.last_line(lines, r"\title")
             self.insert_lines([new_date + "\n"], last_line + 1, lines)
 
+        if "package" in dirs:
+
+            pkg_cmd = []
+            for pkg in dirs["package"]:
+                pkg_cmd.append(r"\usepackage[{0}]{{{1}}}".format(*pkg))
+
+            last_line = self.last_line(lines, "package")
+            self.insert_lines(pkg_cmd, last_line + 1, lines)
+
         if "header" in dirs or "footer" in dirs:
 
             fncy_cmd = []
@@ -143,15 +152,6 @@ class Report:
 
             # insert burger
             self.insert_lines(burger, last_line + 1, lines)
-
-        if "package" in dirs:
-
-            pkg_cmd = []
-            for pkg in dirs["package"]:
-                pkg_cmd.append(r"\usepackage[{0}]{{{1}}}".format(*pkg))
-
-            last_line = self.last_line(lines, "package")
-            self.insert_lines(pkg_cmd, last_line + 1, lines)
 
         if "toc" in dirs:
             last_line = self.last_line(lines, r"\maketitle")
